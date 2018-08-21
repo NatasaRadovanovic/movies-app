@@ -2,7 +2,9 @@
   <div>
   <Movie-search @searchMovie="searchMovie"/>
    <Movie-row v-for="movie in filterMovies" :key="movie.id" 
-   :movie="movie"/>
+   :movie="movie"
+  
+   />
    <div v-if="filterMovies.length === 0">{{ errorMessage }}</div>
   </div>
 </template>
@@ -23,7 +25,8 @@ export default {
    return{
      movies:[],
      title:"",
-     errorMessage:'There is no match!'
+     errorMessage:'There is no match!',
+     
    }
  },
 
@@ -37,7 +40,10 @@ export default {
 methods:{
   searchMovie(title){
   this.title = title 
-  }
+  },
+
+  
+
 },
  beforeRouteEnter (to, from, next) { 
       movies.getAll().then(movies =>{

@@ -1,11 +1,12 @@
 <template>
    <div>
-    <div class="card-body">
+    <div :class="{'red':active }">
         <div>{{ movie.title }}</div>
         <div>{{ movie.director }}</div>
         <div>{{ movie.imageUrl }}</div>
         <div>{{ movie.releaseDate }}</div>
         <div>{{ movie.genre }}</div>
+        <button>Select</button>
     </div>    
        
     </div>
@@ -20,6 +21,16 @@ export default {
           type: Object,
           required:true
       }
+  },
+
+  data(){
+      return{
+        active:true
+      }
+  },
+
+  methods:{
+    
   }
 }
 </script>
