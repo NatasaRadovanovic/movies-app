@@ -1,7 +1,9 @@
 <template>
   <div>
   <Movie-search @searchMovie="searchMovie"/>
-   <Movie-row :movies="filterMovie"/>
+   <Movie-row v-for="movie in filterMovies" :key="movie.id" 
+   :movie="movie"/>
+   <div v-if="filterMovies.length === 0">{{ errorMessage }}</div>
   </div>
 </template>
 
@@ -20,18 +22,21 @@ export default {
  data(){
    return{
      movies:[],
-     title:""
+     title:"",
+     errorMessage:'There is no match!'
    }
  },
 
  computed:{
-   filterMovie(){
-     return this.movies.filter(movie => movie.title.toLowerCase().indexOf(this.title) >= 0)
+   filterMovies(){
+     return this.movies.filter(
+       movie => movie.title.toLowerCase().indexOf(this.title.toLowerCase()) >= 0
+    )
    }
  },
 methods:{
   searchMovie(title){
-    this.title = title
+  this.title = title 
   }
 },
  beforeRouteEnter (to, from, next) { 

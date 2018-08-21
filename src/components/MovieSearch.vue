@@ -2,9 +2,7 @@
    <div>
         <i class="fas fa-search"></i> <input class="search" type="text" placeholder="Search movies" 
          @input="emitInputChangeEvent"
-         v-model="movie"
-         @click="emitInputChangeEvent">
-  
+         v-model="movie">
     </div>
 </template>
 
