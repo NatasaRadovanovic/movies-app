@@ -1,17 +1,17 @@
 <template>
   <div>
-   <Movies :movies="movies"/>
+   <Movie-row :movies="movies"/>
   </div>
 </template>
 
 <script>
 
-import Movies from '../components/Movies.vue'
+import MovieRow from '../components/MovieRow.vue'
 import { movies } from '../service/Movies'
 
 export default {
   components: {
-    Movies,
+    MovieRow,
   },
 
  data(){
@@ -20,13 +20,13 @@ export default {
    }
  },
  beforeRouteEnter (to, from, next) { 
-      movies.getAll().then(response =>{
-       next(vm => {
-         vm.movies = response.data
+      movies.getAll().then(movies =>{
+        next(vm => {
+         vm.movies = movies
        }) 
-      })
+    })
       .catch(err => console.log(err))
-    },
+  },
 }
 </script>
 
