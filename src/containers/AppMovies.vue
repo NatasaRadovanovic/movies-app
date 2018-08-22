@@ -4,8 +4,11 @@
   <h3>Selected: {{ counterOfSelectedMovie.length }}</h3>
    <Movie-row v-for="movie in filterMovies" :key="movie.id" 
    :movie="movie"
-   @selectMovie="selectMovie"/>
+   @selectMovie="selectMovie"
+   :isSelected="isSelected"/>
    <h4 class="search-message" v-if="filterMovies.length === 0">{{ errorMessage }}</h4>
+   <button @click="selectAll">Select All</button>
+   <button @click="deselectAll">Deselect All</button>
   </div>
 </template>
 
@@ -27,6 +30,7 @@ export default {
      title:"",
      errorMessage:'There is no match!',
      counterOfSelectedMovie:[],
+     isSelected:false
      
    }
  },
@@ -45,8 +49,18 @@ methods:{
 
   selectMovie(movie){
     this.counterOfSelectedMovie.push(movie);
-    console.log(this.counterOfSelectedMovie)
-  }
+   
+  },
+
+  selectAll(){
+    this.isSelected=true;
+    this.movies.map(movie=> this.counterOfSelectedMovie.push(movie));
+  },
+
+  deselectAll(){
+    this.isSelected=false;
+    this.counterOfSelectedMovie=[];
+  },
 
 },
  beforeRouteEnter (to, from, next) { 

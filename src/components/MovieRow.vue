@@ -22,12 +22,11 @@ export default {
           type: Object,
           required:true
       },
+      isSelected:{
+          type:Boolean
+      }
   },
-data(){
-    return{
-        isSelected:false
-    }
-},
+
   methods:{
     selected(){
         this.isSelected=true;
