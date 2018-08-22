@@ -8,7 +8,11 @@
    :isSelected="isSelected"/>
    <h4 class="search-message" v-if="filterMovies.length === 0">{{ errorMessage }}</h4>
    <button @click="selectAll">Select All</button>
-   <button @click="deselectAll">Deselect All</button>
+   <button @click="deselectAll">Deselect All</button><br>
+   <button @click="byNameAsc">Sort by Name asc</button><br>
+   <button @click="byNameDesc">Sort by Name desc</button><br>
+   <button @click="byDurationAsc">Sort by Duration asc</button><br>
+   <button @click="byDurationDesc">Sort by Duration desc</button><br>
   </div>
 </template>
 
@@ -61,6 +65,48 @@ methods:{
     this.isSelected=false;
     this.counterOfSelectedMovie=[];
   },
+  
+  byNameAsc(){
+    this.movies.sort(function(a, b) {
+    let nameA = a.title.toUpperCase(); 
+    let nameB = b.title.toUpperCase(); 
+    if (nameA < nameB) {
+    return -1;
+    }
+    if (nameA > nameB) {
+    return 1;
+    }
+
+  return 0;
+    });
+  },
+
+byNameDesc(){
+    this.movies.sort(function(a, b) {
+    let nameA = a.title.toUpperCase(); 
+    let nameB = b.title.toUpperCase(); 
+    if (nameA > nameB) {
+    return 1;
+    }
+    if (nameA < nameB) {
+    return 1;
+    }
+
+  return 0;
+    });
+},
+
+byDurationAsc(){
+this.movies.sort(function (a, b) {
+  return a.releaseDate - b.releaseDate;
+});
+},
+
+byDurationDesc(){
+  this.movies.sort(function (a, b) {
+  return b.releaseDate - a.releaseDate;
+});
+},
 
 },
  beforeRouteEnter (to, from, next) { 
