@@ -1,6 +1,6 @@
 <template>
-   <div>
-        <i class="fas fa-search"></i> <input class="search" type="text" placeholder="Search movies" 
+   <div class="search">
+        <i class="fas fa-search"></i>  <input class="search" type="text" placeholder="Search movies" 
          @input="emitInputChangeEvent"
          v-model="movie">
     </div>
@@ -27,5 +27,11 @@ export default {
 </script>
 
 <style>
-
+    .search{
+        width:50%;
+        margin:0 auto;
+        margin-top:10px;
+        padding:5px;
+        border-radius:5px;
+    }
 </style>

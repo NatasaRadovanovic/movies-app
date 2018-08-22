@@ -1,11 +1,11 @@
 <template>
   <div>
   <Movie-search @searchMovie="searchMovie"/>
+  <h3>Selected: {{ counterOfSelectedMovie.length }}</h3>
    <Movie-row v-for="movie in filterMovies" :key="movie.id" 
    :movie="movie"
-  
-   />
-   <div v-if="filterMovies.length === 0">{{ errorMessage }}</div>
+   @selectMovie="selectMovie"/>
+   <h4 class="search-message" v-if="filterMovies.length === 0">{{ errorMessage }}</h4>
   </div>
 </template>
 
@@ -26,15 +26,16 @@ export default {
      movies:[],
      title:"",
      errorMessage:'There is no match!',
+     counterOfSelectedMovie:[],
      
    }
  },
 
  computed:{
    filterMovies(){
-     return this.movies.filter(
-       movie => movie.title.toLowerCase().indexOf(this.title.toLowerCase()) >= 0
-    )
+     return this.movies.filter((movie)=>{
+      return movie.title.toLowerCase().includes(this.title.toLowerCase())
+     })
    }
  },
 methods:{
@@ -42,7 +43,10 @@ methods:{
   this.title = title 
   },
 
-  
+  selectMovie(movie){
+    this.counterOfSelectedMovie.push(movie);
+    console.log(this.counterOfSelectedMovie)
+  }
 
 },
  beforeRouteEnter (to, from, next) { 
@@ -57,5 +61,8 @@ methods:{
 </script>
 
 <style>
-
+  .search-message{
+    color:red;
+    margin-left:550px;
+  }
 </style>
