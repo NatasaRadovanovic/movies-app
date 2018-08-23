@@ -3,7 +3,7 @@
     <div id="list-of-movie" :class="{'selectedBackground': isSelected }">
         <h1>{{ movie.title }}</h1>
         <div><strong>Director:</strong> {{ movie.director }}</div>
-        <div><strong>URl:</strong> {{ movie.imageUrl }}</div>
+        <div><strong>URl:</strong><img :src="movie.imageUrl" alt="Image"></div>
         <div><strong>Relase Date:</strong> {{ movie.releaseDate }}</div>
         <div><strong>Genre:</strong> {{ movie.genre }}</div><br>
         <button type="button" class="btn btn-info btn-sm" 
@@ -43,6 +43,6 @@ export default {
 }
 
 .selectedBackground{
-    background-color:green;
+    background-color:silver;
 }
 </style>

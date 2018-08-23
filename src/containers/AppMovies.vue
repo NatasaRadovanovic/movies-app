@@ -1,18 +1,38 @@
 <template>
   <div>
-  <Movie-search @searchMovie="searchMovie"/>
-  <h3>Selected: {{ counterOfSelectedMovie.length }}</h3>
-   <Movie-row v-for="movie in filterMovies" :key="movie.id" 
-   :movie="movie"
-   @selectMovie="selectMovie"
-   :isSelected="isSelected"/>
-   <h4 class="search-message" v-if="filterMovies.length === 0">{{ errorMessage }}</h4>
-   <button @click="selectAll">Select All</button>
-   <button @click="deselectAll">Deselect All</button><br>
-   <button @click="byNameAsc">Sort by Name asc</button><br>
-   <button @click="byNameDesc">Sort by Name desc</button><br>
-   <button @click="byDurationAsc">Sort by Duration asc</button><br>
-   <button @click="byDurationDesc">Sort by Duration desc</button><br>
+    <div class="button-many">
+      <button type="button" class="btn btn-light" 
+       @click="byNameAsc">Sort by Name<i class="fas fa-sort-up"></i></button>
+      <button type="button" class="btn btn-light" 
+       @click="byNameDesc">Sort by Name<i class="fas fa-sort-down"></i></button>
+      <button type="button" class="btn btn-light" 
+       @click="byDurationAsc">Sort by Duration<i class="fas fa-sort-up"></i></button>
+      <button type="button" class="btn btn-light" 
+       @click="byDurationDesc">Sort by Duration<i class="fas fa-sort-down"></i></button>
+      <button type="button" class="btn btn-success btn-sm"
+       @click="selectAll">Select All</button>
+      <button type="button" class="btn btn-danger btn-sm" 
+       @click="deselectAll">Deselect All</button>
+      <strong>Selected: {{ counterOfSelectedMovie.length }}</strong>
+    </div>
+    <Movie-search @searchMovie="searchMovie"/>
+    <h5 class="search-message" v-if="filterMovies.length === 0">{{ errorMessage }}</h5>
+    <Movie-row v-for="movie in filterMovies" :key="movie.id" 
+    :movie="movie"
+    @selectMovie="selectMovie"
+    :isSelected="isSelected"/>
+
+     <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <button class="page-link"  @click="prevPage" :disabled="pageNumber <= 0">Previous</button>
+                </li>
+                <li class="page-item active"><button class="page-link">{{ pageNumber }}</button></li>
+                <li class="page-item">
+                    <button class="page-link"  @click="nextPage" :disabled="pageNumber >= pageCount">Next</button>
+                </li>
+            </ul>
+        </nav>
   </div>
 </template>
 
@@ -34,18 +54,29 @@ export default {
      title:"",
      errorMessage:'There is no match!',
      counterOfSelectedMovie:[],
-     isSelected:false
-     
-   }
+     isSelected:false,
+     pageNumber:0,
+     size:5
+    }
  },
 
  computed:{
    filterMovies(){
-     return this.movies.filter((movie)=>{
-      return movie.title.toLowerCase().includes(this.title.toLowerCase())
-     })
-   }
+    let filteredMovies = this.movies.filter(movie => movie.title.toLowerCase().indexOf(this.title.toLowerCase()) >= 0)
+    
+     const start = this.pageNumber * this.size
+     const end = start + this.size;
+     let f = filteredMovies.slice(start, end);
+     return f
+   },
+
+   pageCount(){
+      let l = this.movies.length,
+          s = this.size;
+      return Math.floor(l/s);
+    }
  },
+
 methods:{
   searchMovie(title){
   this.title = title 
@@ -53,7 +84,6 @@ methods:{
 
   selectMovie(movie){
     this.counterOfSelectedMovie.push(movie);
-   
   },
 
   selectAll(){
@@ -67,47 +97,35 @@ methods:{
   },
   
   byNameAsc(){
-    this.movies.sort(function(a, b) {
-    let nameA = a.title.toUpperCase(); 
-    let nameB = b.title.toUpperCase(); 
-    if (nameA < nameB) {
-    return -1;
-    }
-    if (nameA > nameB) {
-    return 1;
-    }
-
-  return 0;
-    });
+   this.movies.sort(function(a, b){
+    return a.title > b.title
+    })
   },
 
 byNameDesc(){
-    this.movies.sort(function(a, b) {
-    let nameA = a.title.toUpperCase(); 
-    let nameB = b.title.toUpperCase(); 
-    if (nameA > nameB) {
-    return 1;
-    }
-    if (nameA < nameB) {
-    return 1;
-    }
-
-  return 0;
-    });
+   this.movies.sort(function(a, b){
+    return a.title < b.title
+   })
 },
 
 byDurationAsc(){
-this.movies.sort(function (a, b) {
+this.movies.sort((a, b) => {
   return a.releaseDate - b.releaseDate;
-});
+  });
 },
 
 byDurationDesc(){
-  this.movies.sort(function (a, b) {
+  this.movies.sort((a, b) => {
   return b.releaseDate - a.releaseDate;
-});
+  });
 },
-
+nextPage(){
+         this.pageNumber++;
+ },
+ 
+ prevPage(){
+        this.pageNumber--;
+  }
 },
  beforeRouteEnter (to, from, next) { 
       movies.getAll().then(movies =>{
@@ -124,5 +142,15 @@ byDurationDesc(){
   .search-message{
     color:red;
     margin-left:550px;
+  }
+
+  .button-many{
+    padding:10px;
+    width:60%;
+    margin:0 auto;
+  }
+
+  .button-many button{
+    margin-right:5px;
   }
 </style>
