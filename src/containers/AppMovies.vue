@@ -89,6 +89,7 @@ methods:{
 
   selectAll(){
     this.isSelected=true;
+    this.counterOfSelectedMovie=[];
     this.movies.map(movie=> this.counterOfSelectedMovie.push(movie));
   },
 
