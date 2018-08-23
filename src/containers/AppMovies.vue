@@ -2,13 +2,13 @@
   <div>
     <div class="button-many">
       <button type="button" class="btn btn-light" 
-       @click="byNameAsc">Sort by Name<i class="fas fa-sort-up"></i></button>
+       @click="byName('asc')">Sort by Name<i class="fas fa-sort-up"></i></button>
       <button type="button" class="btn btn-light" 
-       @click="byNameDesc">Sort by Name<i class="fas fa-sort-down"></i></button>
+       @click="byName('desc')">Sort by Name<i class="fas fa-sort-down"></i></button>
       <button type="button" class="btn btn-light" 
-       @click="byDurationAsc">Sort by Duration<i class="fas fa-sort-up"></i></button>
+       @click="byDuration('asc')">Sort by Duration<i class="fas fa-sort-up"></i></button>
       <button type="button" class="btn btn-light" 
-       @click="byDurationDesc">Sort by Duration<i class="fas fa-sort-down"></i></button>
+       @click="byDuration('desc')" >Sort by Duration<i class="fas fa-sort-down"></i></button>
       <button type="button" class="btn btn-success btn-sm"
        @click="selectAll">Select All</button>
       <button type="button" class="btn btn-danger btn-sm" 
@@ -63,6 +63,7 @@ export default {
  computed:{
    filterMovies(){
     let filteredMovies = this.movies.filter(movie => movie.title.toLowerCase().indexOf(this.title.toLowerCase()) >= 0)
+    console.log(filteredMovies);
     
      const start = this.pageNumber * this.size
      const end = start + this.size;
@@ -96,28 +97,19 @@ methods:{
     this.counterOfSelectedMovie=[];
   },
   
-  byNameAsc(){
-   this.movies.sort(function(a, b){
-    return a.title > b.title
-    })
-  },
-
-byNameDesc(){
-   this.movies.sort(function(a, b){
-    return a.title < b.title
-   })
+  byName(sorted){
+    let index = sorted === 'asc' ? 1 : -1;
+    console.log(index);
+    this.movies.sort((a,b)=>{
+   return a.title >= b.title ? index : index * -1
+  })
 },
 
-byDurationAsc(){
-this.movies.sort((a, b) => {
-  return a.releaseDate - b.releaseDate;
-  });
-},
-
-byDurationDesc(){
-  this.movies.sort((a, b) => {
-  return b.releaseDate - a.releaseDate;
-  });
+byDuration(sorted){
+  let index = sorted === 'asc' ? 1 : -1;
+  this.movies.sort((a,b)=>{
+   return a.releaseDate >= b.releaseDate ? index : index * -1
+  })
 },
 nextPage(){
          this.pageNumber++;
