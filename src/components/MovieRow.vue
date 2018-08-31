@@ -29,7 +29,7 @@ export default {
 
   methods:{
     selected(){
-        this.isSelected=true;
+        
        return this.$emit('selectMovie',this.movie)
     }
   }
