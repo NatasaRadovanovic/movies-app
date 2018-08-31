@@ -9,6 +9,10 @@ export default class Movies{
         return axios.get('movies')
         .then((response ) => response.data)
     }
+
+    add(movie){
+        return axios.post('movies', movie)
+    }
 }
 
 export const movies = new Movies();
