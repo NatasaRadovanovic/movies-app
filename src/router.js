@@ -11,9 +11,9 @@ Vue.use(Router);
 export default new Router({
     mode: 'history',
     routes: [
-        {path: '/', redirect: 'movies',  name:'home'},
-        {path: '/movies', component: AppMovies, name: 'movie'},
-        {path: '/add', component: AddMovie, name: 'add-movie'},
+        {path: '/', redirect: 'movies',  name:'home',  meta: { requiresAuth: true }},
+        {path: '/movies', component: AppMovies, name: 'movie', meta: { requiresAuth: true }},
+        {path: '/add', component: AddMovie, name: 'add-movie',meta: { requiresAuth: true }},
         {path: '/login', component: Login, name: 'login' },
         {path: '/register', component: Register, name: 'register'}
         
