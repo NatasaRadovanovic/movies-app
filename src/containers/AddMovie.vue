@@ -1,7 +1,8 @@
 <template>
   <div>
     <FormMovie  :movie='movie'
-                @onSubmit='onSubmit' /> 
+                @onSubmit='onSubmit'
+                :errors = 'errors' /> 
   </div>
 </template>
 
@@ -17,7 +18,8 @@ export default {
   },
  data(){
      return{
-         movie:{}
+         movie:{},
+         errors:{},
      }
  },
 
@@ -27,7 +29,7 @@ export default {
         .then(response => {
         this.$router.push('/movies')
       })
-       .catch(err => console.log(err))
+       .catch(error => console.log(this.errors = error.response.data.errors))
   },
  }
   
