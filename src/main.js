@@ -6,7 +6,7 @@ import { authService } from './service/Auth'
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
-  if (to.name !== 'login' && !authService.isAuthenticated()){
+  if (to.name !== 'login' && to.name!=='register' && !authService.isAuthenticated()){
     next({path: 'login' })
   } else if (to.name === 'login' && authService.isAuthenticated()){
     next({path: 'movies'})

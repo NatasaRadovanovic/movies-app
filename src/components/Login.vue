@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form @submit.prevent="onSubmit">
+        <form  @submit.prevent="onSubmit">
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
@@ -43,3 +43,10 @@
     }
 }
 </script>
+<style scoped>
+    form{
+        width:50%;
+        margin:0 auto;
+    }
+</style>
+
