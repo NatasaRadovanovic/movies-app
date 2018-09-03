@@ -1,33 +1,29 @@
 <template>
-  <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
-    <router-link to="/movies" class="navbar-brand">Movies</router-link>
-     <router-link to="/add" class="navbar-brand">Add Movies</router-link>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          
-        </li>
-        <li class="nav-item">
-           
-        </li>
-      </ul>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <router-link class="navbar-brand" to="/movies">Movies</router-link>
+           <router-link class="navbar-brand" to="/add">Add
+            </router-link>
+            <router-link v-if="!isAuthenticated" class="navbar-brand" to="/login">Login</router-link>
+            <a href="#" v-if="isAuthenticated" class="navbar-brand" @click="logout">Logout</a>
+        </nav>
     </div>
-  </nav>
 </template>
 
 <script>
 
+import { authService } from '../service/Auth';
 
 export default {
-  name: 'NavBar',
+    props: {
+        isAuthenticated: Boolean,
+    },
+    methods: {
+        logout(){
+            authService.logout()
+            this.$emit('userAuthenticated', false)
+            this.$router.push('/login')
+        }
+    }
 }
 </script>
-
-<style>
-  .form-control{
-    width:25%;
-  }
-</style>

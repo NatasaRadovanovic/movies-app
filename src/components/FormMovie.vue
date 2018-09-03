@@ -63,7 +63,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .formWrapp{
         width:50%;
         margin:0 auto;
