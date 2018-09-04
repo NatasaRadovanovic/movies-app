@@ -30,7 +30,7 @@
                 
                  <div class="col-8">
                  <input id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" 
-                 type="text" class="form-control here" v-model="user.confirmPassword">
+                 type="password" class="form-control here" v-model="user.confirmPassword">
                 </div>
                
             </div> 

@@ -1,7 +1,8 @@
 <template>
    <div><br>
     <div id="list-of-movie" :class="{'selectedBackground': isSelected }">
-        <h1>{{ movie.title }}</h1>
+        <router-link  class="btn btn-link" :to="{name:'single-movie', params: {id:movie.id}}">
+        <h2>{{ movie.title }}</h2> </router-link>
         <div><strong>Director:</strong> {{ movie.director }}</div>
         <div><strong>URl:</strong><img :src="movie.imageUrl" alt="Image"></div>
         <div><strong>Relase Date:</strong> {{ movie.releaseDate }}</div>
